@@ -19,19 +19,108 @@
         <p>Write a summary-analysis/response essay of approx. 400 words</p>
     </div>
     <div class="submission-tool">
-        <textarea rows="10" placeholder="Write your essay here..."></textarea>
+        <textarea id="essay" rows="10" placeholder="Write your essay here..."></textarea>
         <button class="back" onclick="goToPrevious()">Back</button>
         <button class="submit" onclick="submitEssay()">Submit</button>
     </div>    
 
     <script>
+        const evaluateEssay = (essay) => {
+            let score = 0;
+
+            // 1. Keyword Matching
+            const keywords = {
+                high: ["Sentiment API", "emotional surveillance", "privacy", "autonomy", "data collection", "consumer trust"],
+                medium: ["wearable devices", "Halo", "woke capitalism", "AI-powered analysis", "mental health monitoring", "tech companies"],
+                low: ["regulation", "health trends", "user consent", "Big Data", "advertising strategies"],
+            };
+            const keywordPoints = { high: 5, medium: 3, low: 1 };
+
+            Object.keys(keywords).forEach((level) => {
+                keywords[level].forEach((keyword) => {
+                    const count = (essay.match(new RegExp(keyword, "gi")) || []).length;
+                    score += count * keywordPoints[level];
+                });
+            });
+
+            // 2. Struktur Esai
+            const structure = {
+                intro: essay.includes("This article discusses") || essay.includes("The main focus is"),
+                body: essay.includes("Furthermore") || essay.includes("For instance"),
+                conclusion: essay.includes("In conclusion") || essay.includes("Finally"),
+            };
+            score += structure.intro ? 10 : 0;
+            score += structure.body ? 10 : 0;
+            score += structure.conclusion ? 10 : 0;
+
+            // 3. Panjang Esai
+            const wordCount = essay.split(/\s+/).length;
+            if (wordCount >= 325 && wordCount <= 475) {
+                score += 20;
+            } else if (wordCount >= 300 && wordCount <= 500) {
+                score += 10;
+            }
+
+            // 4. Kualitas Bahasa (dummy logic)
+            const grammarScore = 10; // Full points for grammar (can be replaced with NLP library later)
+            score += grammarScore;
+
+            return score;
+        };
+
+        async function submitEssay() {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                alert("You must be logged in to submit.");
+                return;
+            }
+
+            const userId = user.uid;
+            const essay = document.getElementById("essay").value.trim(); // Pastikan textarea memiliki id="essay"
+
+            if (!essay) {
+                alert("Please write an essay before submitting.");
+                return;
+            }
+
+            console.log("User essay content:", essay); // Debugging untuk memastikan nilai esai berhasil diambil
+
+            const score = evaluateEssay(essay); // Evaluasi esai
+
+            try {
+                // Simpan hasil ke Firestore
+                await firebase.firestore()
+                    .collection("users")
+                    .doc(userId)
+                    .collection("tests")
+                    .doc("post_reading_lab")
+                    .set({
+                        score: score,
+                        max_score: 100,
+                        test_type: "post_reading_lab",
+                        submission_date: firebase.firestore.FieldValue.serverTimestamp(),
+                    });
+
+                alert(`Exercise done!`);
+                window.location.href = "profile.html"; // Redirect ke halaman profil
+            } catch (error) {
+                console.error("Error submitting Post Reading Lab:", error);
+                alert("Failed to submit Post Reading Lab. Please try again.");
+            }
+        }
+
+
+
+    </script>
+    <script>
         function goToPrevious() {
             window.location.href = 'reading.html';
         }
-        function submitEssay() {
-            alert("Exercise done!");
-            window.location.href = 'index.html';
-        }
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebaseConfig.js"></script>
 </body>
 </html>
