@@ -3,6 +3,7 @@ body {
     background: linear-gradient(to right, #e1f5fe, #80d8ff);
     margin: 0;
     padding: 0;
+    
 }
 
 nav {
@@ -852,6 +853,8 @@ button:hover {
     margin-right: auto;
 }
 
+
+
 /* Profile Info Centered */
 .profile-info-content {
     display: flex;
@@ -864,12 +867,17 @@ button:hover {
 
 .profile-info-content img {
     margin-bottom: 20px; /* Tambahkan jarak di bawah foto profil */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-info-content p {
     margin: 5px 0; /* Spasi antar paragraf */
     color: #555; /* Warna teks lebih lembut */
     font-size: 16px; /* Ukuran teks */
+}
+.profile-info-content img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .profile-info-content p strong {
@@ -917,6 +925,7 @@ button:hover {
     border-radius: 50%; /* Bulat */
     border: 2px solid #0288d1; /* Border biru */
 }
+
 
 /* Container utama untuk test results */
 /* Container utama untuk test results */
