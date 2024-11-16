@@ -56,9 +56,9 @@ const loadTestResults = async (userId) => {
     testResultsContainer.innerHTML = ""; // Clear any existing content
 
     const defaultTests = [
-        { test_type: "pre_reading_lab", label: "Pre-Reading Lab" },
-        { test_type: "reading_lab", label: "Reading Lab" },
-        { test_type: "post_reading_lab", label: "Post-Reading Lab" },
+        { test_type: "pre_reading_lab", label: "Pre-Reading" },
+        { test_type: "reading_lab", label: "Reading" },
+        { test_type: "post_reading_lab", label: "Post-Reading" },
     ];
 
     try {

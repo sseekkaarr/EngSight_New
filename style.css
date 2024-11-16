@@ -139,6 +139,8 @@ nav ul li a {
     width: 100%;
     height: auto;
     margin-bottom: 10px;
+    
+    
 }
 
 .link-button {
@@ -967,6 +969,16 @@ button:hover {
     margin: 0 auto 15px;
     position: relative;
     background: #f3f3f3;
+    animation: grow-ring 1s ease-out forwards;
+    position: relative;
+}
+@keyframes grow-ring {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 .progress-ring.green {
