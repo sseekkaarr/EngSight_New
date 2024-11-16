@@ -53,7 +53,7 @@ console.log("Auth instance:", window.auth);
 
 const loadTestResults = async (userId) => {
     const testResultsContainer = document.querySelector(".test-cards");
-    testResultsContainer.innerHTML = ""; 
+    testResultsContainer.innerHTML = ""; // Clear any existing content
 
     const defaultTests = [
         { test_type: "pre_reading_lab", label: "Pre-Reading Lab" },
@@ -62,22 +62,23 @@ const loadTestResults = async (userId) => {
     ];
 
     try {
-        const testsCollection = await window.db.collection("users").doc(userId).collection("tests").get();
+        const testsCollection = await firebase.firestore().collection("users").doc(userId).collection("tests").get();
         const results = {};
 
-        // Parsing existing test results
+        // Collect existing test results
         testsCollection.forEach((doc) => {
             results[doc.id] = doc.data();
         });
 
-        // Render each test with default 0% if not present
+        // Render test results
         defaultTests.forEach(({ test_type, label }) => {
             const test = results[test_type] || { score: 0, max_score: 100 };
             const score = test.score || 0;
-            const scoreColor = score >= 90 ? "#4caf50" : score >= 70 ? "#ff9800" : "#f44336";
             const submissionDate = test.submission_date
                 ? new Date(test.submission_date.toDate()).toLocaleDateString()
                 : "Not Attempted";
+
+            const scoreColor = score >= 90 ? "#4caf50" : score >= 70 ? "#ff9800" : "#f44336";
 
             const testCard = `
                 <div class="test-card">
@@ -95,6 +96,7 @@ const loadTestResults = async (userId) => {
         testResultsContainer.innerHTML = `<p>Error loading test results.</p>`;
     }
 };
+
 
 // Fungsi untuk render progress ring default (0%)
 const renderDefaultTestResults = (container) => {
