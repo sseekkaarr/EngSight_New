@@ -17,12 +17,43 @@
        <h2>Pre-Reading Lab</h2>
        <p><strong>Activate Your Critical Thinking</strong></p>
        <p>Before diving into the reading, take a moment to clear your mind and prepare to engage critically with the text. Reading is more than just understanding words—it's about uncovering deeper meanings, evaluating arguments, and questioning assumptions.</p>
-       <button onclick="goToNext()">Next</button>
+       <button id="next-button">Next</button>
    </div>
+
+   <!-- Firebase SDK -->
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+   <script src="js/firebaseConfig.js"></script>
+
    <script>
-       function goToNext() {
-           window.location.href = 'reading.html';
-       }
-   </script>
+        // Tambahkan log untuk mengecek Firebase Auth dan Firestore
+       console.log("Firebase Auth Instance:", firebase.auth());
+       console.log("Firebase Firestore Instance:", firebase.firestore());
+
+        document.getElementById("next-button").addEventListener("click", async () => {
+            const user = firebase.auth().currentUser;
+            if (!user) {
+                alert("User not logged in. Redirecting to login.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                await firebase.firestore().collection("users").doc(user.uid).collection("tests").doc("pre_reading_lab").set({
+                    test_type: "pre_reading_lab",
+                    score: 100,
+                    max_score: 100,
+                    submission_date: firebase.firestore.FieldValue.serverTimestamp(),
+                });
+                console.log("Pre-Reading Lab data saved.");
+                window.location.href = "reading.html";
+            } catch (error) {
+                console.error("Error saving Pre-Reading Lab data:", error);
+                alert("Failed to save progress. Please try again.");
+            }
+        });
+    </script>
+
 </body>
 </html>
