@@ -23,18 +23,19 @@
     <main>
         <h1 class="center">Your Profile</h1>
 
-        <!-- Box: Profile Info -->
-        <section class="profile-box profile-info">
-            <h2>Profile Info</h2>
-            <div class="profile-info-content">
-                <img id="profile-picture" src="img/default-avatar.png" alt="Profile Picture">
-                <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
-                <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
-            </div>
-        </section>
+        <div class="profile-container">
+            <!-- Box: Profile Info -->
+            <section class="profile-box profile-info">
+                <h2>Profile Info</h2>
+                <div class="profile-info-content">
+                    <img id="profile-picture" src="img/default-avatar.png" alt="Profile Picture">
+                    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                </div>
+            </section>
         
-
-        <!-- Box: Learning Videos Progress -->
+<!-- 
+         Box: Learning Videos Progress 
         <section class="profile-box">
             <h2>Learning Videos Progress</h2>
             <div class="progress-category">
@@ -65,7 +66,7 @@
                 </div>
                 <p>40% Completed</p>
             </div>
-        </section>
+        </section> -->
 
         <!-- Box: Test Results -->
         <section id="test-results" class="profile-box">
@@ -74,9 +75,10 @@
                 <p>Loading test results...</p>
             </div>
         </section>
+    </div>
 
-
-        <!-- Box: Activity Log -->
+<!-- 
+         Box: Activity Log
         <section class="profile-box">
             <h2>Your Activity Log</h2>
             <div id="calendar-controls">
@@ -93,7 +95,7 @@
                     <li>Select a date to view activity</li>
                 </ul>
             </div>
-        </section>
+        </section> -->
 
         <button id="logoutBtn" class="logout">Log Out</button>
     </main>
