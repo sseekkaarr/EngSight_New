@@ -32,7 +32,6 @@
                 <p><strong>Email:</strong> sekaranindita@example.com</p>
             </div>
         </section>
-        
 
         <!-- Box: Learning Videos Progress -->
         <section class="profile-box">
@@ -66,15 +65,11 @@
                 <p>40% Completed</p>
             </div>
         </section>
-        
-        
 
-        <!-- Box: Test Results -->
         <!-- Box: Test Results -->
         <section id="test-results" class="profile-box">
             <h2>Your Test Results</h2>
             <div class="test-cards">
-                <!-- Pre-Reading Lab -->
                 <div class="test-card">
                     <div class="progress-ring high-score" data-score="100">
                         <span class="score-text">100%</span>
@@ -82,7 +77,6 @@
                     <h3>Pre-Reading Lab</h3>
                     <p><strong>Date:</strong> 2024-11-06</p>
                 </div>
-                <!-- Reading Lab -->
                 <div class="test-card">
                     <div class="progress-ring low-score" data-score="60">
                         <span class="score-text">60%</span>
@@ -90,7 +84,6 @@
                     <h3>Reading Lab</h3>
                     <p><strong>Date:</strong> 2024-11-07</p>
                 </div>
-                <!-- Post-Reading Lab -->
                 <div class="test-card">
                     <div class="progress-ring medium-score" data-score="80">
                         <span class="score-text">80%</span>
@@ -101,25 +94,7 @@
             </div>
         </section>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                if (window.location.hash === '#test-results') {
-                    const testResultsSection = document.querySelector('#test-results');
-                    if (testResultsSection) {
-                        // Gulir dengan offset agar judul terlihat
-                        const yOffset = -100; // Sesuaikan offset untuk ruang atas
-                        const y = testResultsSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                        window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
-                }
-            });
-        </script>
-        
-        
-        
-        
-
-       <!-- Box: Activity Log -->
+        <!-- Box: Activity Log -->
         <section class="profile-box">
             <h2>Your Activity Log</h2>
             <div id="calendar-controls">
@@ -137,24 +112,32 @@
                 </ul>
             </div>
         </section>
-        <button class="logout" onclick="logout()">Log Out</button>
-        
 
+        <button id="logoutBtn" class="logout">Log Out</button>
     </main>
 
-    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="js/firebaseConfig.js"></script>
+    <script src="js/profile.js" defer></script>
+
+
+
+    <!-- Logout Logic -->
     <script>
-        function confirmLogout() {
-            if (confirm("Are you sure you want to log out?")) {
-                window.location.href = 'login.html';
-            } else {
-                // Stay on the profile page
+        document.getElementById("logoutBtn").addEventListener("click", async () => {
+            try {
+                await window.auth.signOut(); // Menggunakan window.auth
+                alert("Logged out successfully!");
+                window.location.href = "login.html"; // Redirect ke login
+            } catch (error) {
+                console.error("Error during logout:", error);
+                alert("Failed to log out. Please try again.");
             }
-        }
+        });
     </script>
-
-    <script src="js/profile.js"></script>
-
     
 </body>
 </html>

@@ -12,7 +12,36 @@ function showDescription(lab) {
     descriptionContainer.style.display = "block";
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const startNowButton = document.getElementById("start-now");
+    startNowButton.addEventListener("click", () => {
+        alert("Redirecting to Pre-Reading Lab...");
+        window.location.href = "pre-reading.html"; // Redirect sesuai kebutuhan
+    });
+});
 
 function startNow() {
-    window.location.href = 'login.html';
+    window.location.href = 'pre-reading.html';
 }
+
+
+auth.onAuthStateChanged((user) => {
+    const navbar = document.querySelector("nav ul");
+    if (user) {
+        // Jika user login
+        navbar.innerHTML = `
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        `;
+    } else {
+        // Jika user belum login
+        navbar.innerHTML = `
+            <li><a href="index.html">Home</a></li>
+            <li><a href="register.html">Sign Up</a></li>
+            <li><a href="login.html">Sign In</a></li>
+        `;
+    }
+});
+
+
+
