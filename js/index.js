@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startNowButton = document.getElementById("start-now");
     startNowButton.addEventListener("click", () => {
         alert("Redirecting to Pre-Reading Lab...");
-        window.location.href = "pre-reading.html"; // Redirect sesuai kebutuhan
+        window.location.href = "pre-reading.html";
     });
 });
 
@@ -28,13 +28,11 @@ function startNow() {
 auth.onAuthStateChanged((user) => {
     const navbar = document.querySelector("nav ul");
     if (user) {
-        // Jika user login
         navbar.innerHTML = `
             <li><a href="index.html">Home</a></li>
             <li><a href="profile.html">Profile</a></li>
         `;
     } else {
-        // Jika user belum login
         navbar.innerHTML = `
             <li><a href="index.html">Home</a></li>
             <li><a href="register.html">Sign Up</a></li>

@@ -27,7 +27,7 @@ if (registerForm) {
       });
 
       alert("Registration successful! Please login.");
-      window.location.href = "login.html"; // Redirect ke halaman login
+      window.location.href = "login.html";
     } catch (error) {
       console.error("Error during registration:", error);
       alert(error.message);
@@ -35,7 +35,6 @@ if (registerForm) {
   });
 }
 
-// LOGIN FUNCTIONALITY
 const loginForm = document.getElementById("login-form");
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
@@ -58,7 +57,7 @@ if (loginForm) {
       console.log("User logged in:", user.uid);
 
       alert("Login successful!");
-      window.location.href = "index.html"; // Redirect ke halaman utama
+      window.location.href = "index.html";
     } catch (error) {
       console.error("Error during login:", error);
       alert(error.message);
@@ -66,7 +65,6 @@ if (loginForm) {
   });
 }
 
-// LOGOUT FUNCTIONALITY
 document.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("logout-nav");
   if (logoutButton) {
@@ -74,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         await auth.signOut();
         alert("Logged out successfully!");
-        window.location.href = "login.html"; // Redirect ke halaman login
+        window.location.href = "login.html"; 
       } catch (error) {
         console.error("Error during logout:", error);
         alert(error.message);
@@ -83,18 +81,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// UPDATE NAVBAR BASED ON AUTH STATE
 auth.onAuthStateChanged((user) => {
   const navbar = document.querySelector("nav ul");
 
   if (navbar) {
     if (user) {
-      // Jika pengguna login
       navbar.innerHTML = `
           <li><a href="profile.html">Profile</a></li>
       `;
 
-      // Tambahkan event listener untuk logout
       const logoutNavButton = document.getElementById("logout-nav");
       if (logoutNavButton) {
         logoutNavButton.addEventListener("click", async () => {
@@ -108,7 +103,6 @@ auth.onAuthStateChanged((user) => {
         });
       }
     } else {
-      // Jika pengguna belum login
       const currentPath = window.location.pathname;
       if (currentPath.includes("register.html") || currentPath.includes("login.html")) {
         navbar.innerHTML = `
@@ -124,7 +118,6 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// BUTTON START NOW (ENSURE LOGIN)
 document.addEventListener("DOMContentLoaded", () => {
   const startNowButton = document.getElementById("start-now");
   if (startNowButton) {

@@ -190,12 +190,12 @@
                 console.log(`Best Match Score for ${category}: ${bestMatchScore}%`);
 
                 if (bestMatchScore >= 80) {
-                    score += 25; // Full score for the category
+                    score += 25;
                 }
             }
 
             console.log(`Final Text Box Score: ${score}`);
-            return score; // Maximum score is 100
+            return score;
         };
 
 
@@ -220,16 +220,15 @@
                 }
 
                 const userId = user.uid;
-                console.log("User ID:", userId); // Cek apakah pengguna terautentikasi
+                console.log("User ID:", userId); 
 
-                // Ambil input dari pengguna
                 const textBoxAnswers = {
                     Claims: document.getElementById("claims").value,
                     Reasons: document.getElementById("reason").value,
                     Backings: document.getElementById("backing").value,
                     Refutations: document.getElementById("refutation").value,
                 };
-                console.log("Text Box Answers:", textBoxAnswers); // Debug jawaban text box
+                console.log("Text Box Answers:", textBoxAnswers);
 
                 const dragDropAnswers = {
                     Quack: document.getElementById("dropzone1").getAttribute("data-answer"),
@@ -238,19 +237,17 @@
                     PreEmptive: document.getElementById("dropzone4").getAttribute("data-answer"),
                     Decreed: document.getElementById("dropzone5").getAttribute("data-answer"),
                 };
-                console.log("Drag and Drop Answers:", dragDropAnswers); // Debug jawaban drag-and-drop
+                console.log("Drag and Drop Answers:", dragDropAnswers);
 
-                // Evaluasi jawaban
                 const textBoxScore = evaluateTextBox(textBoxAnswers);
-                console.log("Text Box Score:", textBoxScore); // Debug skor text box
+                console.log("Text Box Score:", textBoxScore); 
 
                 const dragDropScore = evaluateDragDrop(dragDropAnswers);
-                console.log("Drag and Drop Score:", dragDropScore); // Debug skor drag-and-drop
+                console.log("Drag and Drop Score:", dragDropScore); 
 
                 const finalScore = (textBoxScore + dragDropScore) / 2;
-                console.log("Final Score:", finalScore); // Debug skor akhir
+                console.log("Final Score:", finalScore);
 
-                // Simpan skor ke Firestore
                 await firebase.firestore()
                     .collection("users")
                     .doc(userId)
@@ -262,12 +259,11 @@
                         submission_date: firebase.firestore.FieldValue.serverTimestamp(),
                     });
 
-                console.log("Score saved successfully in Firestore"); // Debug apakah data berhasil disimpan                
+                console.log("Score saved successfully in Firestore"); 
             } catch (error) {
-                console.error("Error submitting Reading Lab:", error); // Debug jika terjadi error
+                console.error("Error submitting Reading Lab:", error);
                 alert("Error submitting Reading Lab. You will still proceed.");
             } finally {
-                // Pastikan halaman tetap redirect ke post-reading.html
                 window.location.href = "post-reading.html";
             }
         }

@@ -101,22 +101,18 @@
         <button id="logoutBtn" class="logout">Log Out</button>
     </main>
 
-    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script src="js/firebaseConfig.js"></script>
     <script src="js/profile.js" defer></script>
 
-
-
-    <!-- Logout Logic -->
     <script>
         document.getElementById("logoutBtn").addEventListener("click", async () => {
             try {
-                await window.auth.signOut(); // Menggunakan window.auth
+                await window.auth.signOut();
                 alert("Logged out successfully!");
-                window.location.href = "login.html"; // Redirect ke login
+                window.location.href = "login.html"; 
             } catch (error) {
                 console.error("Error during logout:", error);
                 alert("Failed to log out. Please try again.");

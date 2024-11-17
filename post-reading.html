@@ -81,7 +81,7 @@
             }
 
             // 4. Kualitas Bahasa (dummy logic)
-            const grammarScore = 10; // Full points for grammar (can be replaced with NLP library later)
+            const grammarScore = 10;
             score += grammarScore;
 
             return score;
@@ -95,19 +95,18 @@
             }
 
             const userId = user.uid;
-            const essay = document.getElementById("essay").value.trim(); // Pastikan textarea memiliki id="essay"
+            const essay = document.getElementById("essay").value.trim();
 
             if (!essay) {
                 alert("Please write an essay before submitting.");
                 return;
             }
 
-            console.log("User essay content:", essay); // Debugging untuk memastikan nilai esai berhasil diambil
+            console.log("User essay content:", essay); 
 
-            const score = evaluateEssay(essay); // Evaluasi esai
+            const score = evaluateEssay(essay); 
 
             try {
-                // Simpan hasil ke Firestore
                 await firebase.firestore()
                     .collection("users")
                     .doc(userId)
@@ -121,7 +120,7 @@
                     });
 
                 alert(`Exercise done!`);
-                window.location.href = "profile.html"; // Redirect ke halaman profil
+                window.location.href = "profile.html";
             } catch (error) {
                 console.error("Error submitting Post Reading Lab:", error);
                 alert("Failed to submit Post Reading Lab. Please try again.");
